@@ -21,7 +21,7 @@ model = ChatOpenAI(
 agent = create_agent(model=model)
 
 
-@observe()
+@observe(name="function_observation")
 def transform_question(raw: str) -> str:
     return raw.strip().capitalize()
 
@@ -31,7 +31,15 @@ transformed = transform_question(user_input)
 
 response = agent.invoke(
     {"messages": [{"role": "user", "content": transformed}]},
-    config={"callbacks": [langfuse_handler]}, 
+    config={
+    "callbacks": [langfuse_handler],
+    "run_name" : "agent_trace_renamed",
+    "metadata" : {
+        "langfuse_user_id": "luis_testing_user",
+        "langfuse_session_id": "001",
+        "langfuse_tags": ["module-3-final", "observe"],
+    }
+    }, 
 )
 
 print(response["messages"][-1].content)
