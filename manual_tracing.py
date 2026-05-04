@@ -1,3 +1,6 @@
+# Here we simply added an observe decorator to the functions we want to follow in case they are also important
+# to "log" inside langfuse
+
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
