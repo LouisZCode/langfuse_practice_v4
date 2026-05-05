@@ -5,14 +5,14 @@ from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
-# Step 3: Fetch the prompt from Langfuse
+# 3: Fetch the prompt from Langfuse
 langfuse = get_client()
 prompt = langfuse.get_prompt("learning_prompt", label="latest")
 
-# Step 4: Compile with runtime variables
+# 4: Compile with runtime variables
 compiled = prompt.compile(language="French", level="A2 beginner")
 
-# Step 5: Build the model from the prompt's config and send messages
+# 5: Build the model from the prompt's config and send messages
 model = ChatOpenAI(
     model=prompt.config["model"],
     temperature=prompt.config["temperature"],
@@ -22,6 +22,7 @@ model = ChatOpenAI(
 
 user_input = "Bonjour! Je veux pratiquer aujourd'hui."
 messages = compiled + [{"role": "user", "content": user_input}]
+        # Here the sys message
 
 response = model.invoke(messages)
 
