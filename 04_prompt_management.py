@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 from langfuse import get_client
 from langchain_openai import ChatOpenAI
 
+# For this to work, I created a new prompt inside langfuse, and using the .env info I was able to 
+# name and pull the prompt itself, plus other details of it.
+
 load_dotenv()
 
 # 3: Fetch the prompt from Langfuse
