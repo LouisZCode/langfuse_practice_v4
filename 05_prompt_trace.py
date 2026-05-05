@@ -32,7 +32,14 @@ def run_tutor(user_input: str):
     ) as gen:
 
         response = model.invoke(messages)
-        gen.update(output=response.content)
+        gen.update(
+            output=response.content,
+            usage_details={
+                "input": response.usage_metadata["input_tokens"],
+                "output": response.usage_metadata["output_tokens"],
+                "total": response.usage_metadata["total_tokens"],
+            },
+        )
 
     return response.content
 
